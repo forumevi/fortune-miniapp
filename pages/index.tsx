@@ -1,11 +1,9 @@
-// pages/index.tsx
-import React, { useState, useEffect } from "react";
-
-// Farcaster MiniApp SDK import, minimal kullanımla
-import MiniAppSDK from "@farcaster/miniapp-sdk";
+import React, { useState } from "react";
 
 export default function Home() {
-  const [fortune, setFortune] = useState<string>("🤔 Click below to reveal your fortune!");
+  const [fortune, setFortune] = useState<string>(
+    "🤔 Click below to reveal your fortune!"
+  );
 
   const fortunes = [
     "🌟 You will have an amazing week!",
@@ -17,19 +15,16 @@ export default function Home() {
     "📚 Learn something new today—it will pay off!",
   ];
 
-  useEffect(() => {
-    // MiniApp başlatılıyor
-    MiniAppSDK.init({ appId: "fortune-miniapp" });
-  }, []);
-
   const handleReveal = () => {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200 p-4">
-      <h1 className="text-3xl font-bold text-purple-700 mb-6">🧿 Fortune MiniApp</h1>
+    <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
+      <h1 className="text-3xl font-bold text-purple-700 mb-6">
+        🧿 Fortune MiniApp
+      </h1>
       <p className="text-lg text-gray-700 mb-6 max-w-md">{fortune}</p>
       <button
         onClick={handleReveal}
