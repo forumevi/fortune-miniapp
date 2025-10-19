@@ -1,8 +1,16 @@
-import React, { useState } from "react";
-import MiniApp from "@farcaster/miniapp-sdk"; // default import, bu kritik
+import React, { useEffect, useRef, useState } from "react";
+import MiniAppSDK from "@farcaster/miniapp-sdk";
 
 export default function Home() {
   const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
+  const miniAppContainer = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (miniAppContainer.current) {
+      const sdk = new MiniAppSDK({ appId: "fortune-miniapp" });
+      sdk.init(miniAppContainer.current); // element mount
+    }
+  }, []);
 
   const handleReveal = () => {
     const fortunes = [
@@ -11,18 +19,17 @@ export default function Home() {
       "💰 A surprise reward is waiting for you.",
       "✨ New opportunities are ahead!"
     ];
-    const randomIndex = Math.floor(Math.random() * fortunes.length);
-    setFortune(fortunes[randomIndex]);
+    setFortune(fortunes[Math.floor(Math.random() * fortunes.length)]);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
       <h1 className="text-3xl font-bold text-purple-700 mb-6">🧿 Fortune MiniApp</h1>
 
-      {/* MiniApp embed */}
-      <div className="w-full max-w-md mb-6">
-        <MiniApp appId="fortune-miniapp" />
-      </div>
+      <div
+        ref={miniAppContainer}
+        className="w-full max-w-md mb-6"
+      ></div>
 
       <p className="text-xl mb-4">{fortune}</p>
       <button
