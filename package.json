@@ -8,12 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "@farcaster/miniapp-sdk": "^0.2.5",
     "next": "13.5.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "@farcaster/miniapp-sdk": "^0.1.8"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   }
 }
