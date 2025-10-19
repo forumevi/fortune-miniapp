@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { MiniAppFrame } from "@farcaster/miniapp-sdk";
+import React, { useState } from "react";
+import MiniAppFrame from "@farcaster/miniapp-sdk";
 
 export default function FortuneFrame() {
-  const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
+  const [fortune, setFortune] = useState<string>(
+    "🤔 Click below to reveal your fortune!"
+  );
 
   const fortunes = [
-    "🍀 Today is your lucky day!",
-    "💫 Big opportunities are on the horizon.",
-    "🔥 Believe in yourself — great things are coming.",
-    "🌙 The universe is aligning in your favor.",
-    "🌞 A smile will bring you unexpected joy!"
+    "🌟 You will have an amazing week!",
+    "💰 A surprise reward is coming soon!",
+    "❤️ Someone admires your positive energy!",
+    "🚀 New opportunities are on the horizon!",
+    "🎉 A celebration is waiting for you!",
   ];
 
   const handleReveal = () => {
@@ -21,14 +23,16 @@ export default function FortuneFrame() {
 
   return (
     <MiniAppFrame>
-      <div className="flex flex-col items-center justify-center h-screen text-center p-4">
-        <h1 className="text-2xl font-bold mb-4 text-purple-600">FortuneCast ✨</h1>
-        <p className="text-lg mb-6">{fortune}</p>
+      <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
+        <h1 className="text-3xl font-bold text-purple-700 mb-6">
+          🧿 Fortune MiniApp
+        </h1>
+        <p className="text-lg text-gray-700 mb-6 max-w-md">{fortune}</p>
         <button
           onClick={handleReveal}
-          className="bg-purple-600 text-white py-2 px-6 rounded-xl hover:bg-purple-700 transition-all"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl shadow-md transition-transform transform hover:scale-105"
         >
-          Reveal My Fortune
+          Reveal My Fortune ✨
         </button>
       </div>
     </MiniAppFrame>
