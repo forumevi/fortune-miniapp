@@ -8,5 +8,10 @@
   "developer": {
     "name": "Your Name",
     "url": "https://your-website.com"
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjUyMDE2OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDI3N2ZjMTRmNjkwNjA2RWMzMUYwMDYyMDI0NjRFQTU2M2VmRkU2QzIifQ",
+    "payload": "eyJkb21haW4iOiJmb3J0dW5lLW1pbmlhcHBzLnZlcmNlbC5hcHAifQ",
+    "signature": "AVFRlwrfFjbksuti+E1ESeKnTpWbIZmHS/WqXgB4IFMZELbO4RoQ+4vVMvatEE4xvVPOzEqeyobapAOn8n8D8xs="
   }
 }
