@@ -6,6 +6,7 @@ export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
     "🤔 Click below to reveal your fortune!"
   );
+  const [wallet, setWallet] = useState<string | null>(null);
 
   const fortunes = [
     "🌟 You will have an amazing week!",
@@ -17,9 +18,32 @@ export default function FortuneFrame() {
     "📚 Learn something new today—it will pay off!",
   ];
 
-  const handleReveal = () => {
+  const handleReveal = async () => {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
+
+    // Token ödülü veya event gönderme
+    if (wallet) {
+      try {
+        await MiniAppSDK.reward({
+          walletAddress: wallet,
+          rewardType: "fortune_badge",
+          value: 1,
+        });
+      } catch (err) {
+        console.error("Reward error:", err);
+      }
+    }
+  };
+
+  const connectWallet = async () => {
+    try {
+      const w = await MiniAppSDK.connectWallet();
+      setWallet(w.address);
+      console.log("Connected wallet:", w.address);
+    } catch (err) {
+      console.error("Wallet connection failed:", err);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +55,14 @@ export default function FortuneFrame() {
       <h1 className="text-3xl font-bold text-purple-700 mb-6">
         🧿 Fortune MiniApp
       </h1>
+      {!wallet && (
+        <button
+          onClick={connectWallet}
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-md transition-transform transform hover:scale-105 mb-6"
+        >
+          Connect Wallet 🔗
+        </button>
+      )}
       <p className="text-lg text-gray-700 mb-6 max-w-md">{fortune}</p>
       <button
         onClick={handleReveal}
