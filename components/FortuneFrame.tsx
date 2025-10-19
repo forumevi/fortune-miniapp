@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import MiniApp from "@farcaster/miniapp-sdk";
 import Confetti from "react-confetti";
 
 export default function FortuneFrame() {
@@ -9,23 +10,21 @@ export default function FortuneFrame() {
   );
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const fortunes = [
-    "🌟 Great success is coming your way!",
-    "🍀 Luck will find you today!",
-    "💡 A new idea will spark soon.",
-    "❤️ Love is in the air!",
-    "🎉 Celebrate your achievements!"
-  ];
-
   const revealFortune = () => {
-    const randomIndex = Math.floor(Math.random() * fortunes.length);
-    setFortune(fortunes[randomIndex]);
+    const fortunes = [
+      "🍀 Great luck awaits you!",
+      "🌟 Today is your day!",
+      "💫 Something magical will happen!",
+      "🔥 Take a bold step forward!"
+    ];
+    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+    setFortune(random);
     setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000);
+    setTimeout(() => setShowConfetti(false), 5000);
   };
 
   return (
-    <>
+    <MiniApp>
       {showConfetti && <Confetti />}
       <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
         <h1 className="text-3xl font-bold text-purple-700 mb-6">
@@ -33,12 +32,12 @@ export default function FortuneFrame() {
         </h1>
         <p className="text-xl mb-6">{fortune}</p>
         <button
+          className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
           onClick={revealFortune}
-          className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition"
         >
           Reveal Fortune
         </button>
       </div>
-    </>
+    </MiniApp>
   );
 }
