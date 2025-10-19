@@ -1,4 +1,3 @@
-// components/FortuneFrame.tsx
 import React, { useState, useEffect } from "react";
 import MiniAppSDK from "@farcaster/miniapp-sdk";
 
@@ -18,22 +17,9 @@ export default function FortuneFrame() {
     "📚 Learn something new today—it will pay off!",
   ];
 
-  const handleReveal = async () => {
+  const handleReveal = () => {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
-
-    // Token ödülü veya event gönderme
-    if (wallet) {
-      try {
-        await MiniAppSDK.reward({
-          walletAddress: wallet,
-          rewardType: "fortune_badge",
-          value: 1,
-        });
-      } catch (err) {
-        console.error("Reward error:", err);
-      }
-    }
   };
 
   const connectWallet = async () => {
