@@ -1,29 +1,35 @@
 import React, { useState } from "react";
-import { MiniApp } from "@farcaster/miniapp-sdk";
+import MiniApp from "@farcaster/miniapp-sdk"; // default import, bu kritik
 
 export default function Home() {
   const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
 
   const handleReveal = () => {
-    const options = [
-      "🌟 You will have an amazing week!",
-      "💰 A surprise reward is coming soon!",
-      "❤️ Someone admires your positive energy!",
-      "🚀 New opportunities are on the horizon!",
+    const fortunes = [
+      "🍀 Great luck is coming your way!",
+      "🌙 Reflect and find your inner peace.",
+      "💰 A surprise reward is waiting for you.",
+      "✨ New opportunities are ahead!"
     ];
-    setFortune(options[Math.floor(Math.random() * options.length)]);
+    const randomIndex = Math.floor(Math.random() * fortunes.length);
+    setFortune(fortunes[randomIndex]);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
       <h1 className="text-3xl font-bold text-purple-700 mb-6">🧿 Fortune MiniApp</h1>
-      <MiniApp appId="fortune-miniapp" />
-      <p className="text-lg text-gray-700 mb-6">{fortune}</p>
+
+      {/* MiniApp embed */}
+      <div className="w-full max-w-md mb-6">
+        <MiniApp appId="fortune-miniapp" />
+      </div>
+
+      <p className="text-xl mb-4">{fortune}</p>
       <button
         onClick={handleReveal}
-        className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl"
+        className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
       >
-        Reveal My Fortune ✨
+        Reveal Fortune
       </button>
     </div>
   );
