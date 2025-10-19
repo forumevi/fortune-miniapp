@@ -1,5 +1,6 @@
+// components/FortuneFrame.tsx
 import React, { useState, useEffect } from "react";
-import MiniAppSDK from "@farcaster/miniapp-sdk"; // default import
+import MiniAppSDK from "@farcaster/miniapp-sdk";
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
@@ -22,8 +23,7 @@ export default function FortuneFrame() {
   };
 
   useEffect(() => {
-    // Tip kontrolünü atlayarak MiniApp başlatıyoruz
-    (MiniAppSDK as any).init({ appId: "fortune-miniapp" });
+    MiniAppSDK.init({ appId: "fortune-miniapp" });
   }, []);
 
   return (
