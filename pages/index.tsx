@@ -1,40 +1,40 @@
+// pages/index.tsx
 import React, { useEffect, useRef, useState } from "react";
-import MiniApp from "@farcaster/miniapp-sdk";
+import { MiniApp } from "@farcaster/miniapp-sdk"; // fonksiyon olarak çağrılacak
 
 export default function Home() {
-  const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
   const miniAppContainer = useRef<HTMLDivElement>(null);
+  const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
 
   useEffect(() => {
     if (miniAppContainer.current) {
-      // SDK artık bir nesne olarak değil, fonksiyon olarak çağrılıyor
-      MiniApp({ appId: "fortune-miniapp", element: miniAppContainer.current });
+      // MiniApp embedini fonksiyon olarak çağırıyoruz
+      MiniApp({
+        appId: "fortune-miniapp",
+        element: miniAppContainer.current,
+        onEvent: (event) => {
+          // Örn: reward veya başka eventleri yakala
+          if (event.type === "fortuneRevealed") {
+            setFortune(event.data.fortuneText);
+          }
+        },
+      });
     }
   }, []);
 
-  const handleReveal = () => {
-    const fortunes = [
-      "🍀 Great luck is coming your way!",
-      "🌙 Reflect and find your inner peace.",
-      "💰 A surprise reward is waiting for you.",
-      "✨ New opportunities are ahead!"
-    ];
-    setFortune(fortunes[Math.floor(Math.random() * fortunes.length)]);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
-      <h1 className="text-3xl font-bold text-purple-700 mb-6">🧿 Fortune MiniApp</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-2xl mb-6">🎲 Fortune Mini App</h1>
 
-      <div ref={miniAppContainer} className="w-full max-w-md mb-6"></div>
+      {/* MiniApp embed alanı */}
+      <div
+        ref={miniAppContainer}
+        className="w-full max-w-md mb-6"
+        style={{ height: "400px", border: "1px solid #ccc" }}
+      ></div>
 
+      {/* Fortune sonucu */}
       <p className="text-xl mb-4">{fortune}</p>
-      <button
-        onClick={handleReveal}
-        className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
-      >
-        Reveal Fortune
-      </button>
     </div>
   );
 }
