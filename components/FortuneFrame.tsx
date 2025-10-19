@@ -1,4 +1,4 @@
-import MiniApp from "@farcaster/miniapp-sdk";
+import React, { useState } from "react";
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
@@ -11,6 +11,8 @@ export default function FortuneFrame() {
     "❤️ Someone admires your positive energy!",
     "🚀 New opportunities are on the horizon!",
     "🎉 A celebration is waiting for you!",
+    "🧘 Take a deep breath and enjoy the moment.",
+    "📚 Learn something new today—it will pay off!",
   ];
 
   const handleReveal = () => {
