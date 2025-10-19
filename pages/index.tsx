@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import MiniAppSDK from "@farcaster/miniapp-sdk";
+import MiniApp from "@farcaster/miniapp-sdk";
 
 export default function Home() {
   const [fortune, setFortune] = useState("🤔 Click below to reveal your fortune!");
@@ -7,8 +7,8 @@ export default function Home() {
 
   useEffect(() => {
     if (miniAppContainer.current) {
-      const sdk = new MiniAppSDK({ appId: "fortune-miniapp" });
-      sdk.init(miniAppContainer.current); // element mount
+      // SDK artık bir nesne olarak değil, fonksiyon olarak çağrılıyor
+      MiniApp({ appId: "fortune-miniapp", element: miniAppContainer.current });
     }
   }, []);
 
@@ -26,10 +26,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
       <h1 className="text-3xl font-bold text-purple-700 mb-6">🧿 Fortune MiniApp</h1>
 
-      <div
-        ref={miniAppContainer}
-        className="w-full max-w-md mb-6"
-      ></div>
+      <div ref={miniAppContainer} className="w-full max-w-md mb-6"></div>
 
       <p className="text-xl mb-4">{fortune}</p>
       <button
