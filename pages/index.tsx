@@ -1,6 +1,6 @@
 // pages/index.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { MiniApp } from "@farcaster/miniapp-sdk"; // fonksiyon olarak çağrılacak
+import MiniApp from "@farcaster/miniapp-sdk"; // default import
 
 export default function Home() {
   const miniAppContainer = useRef<HTMLDivElement>(null);
@@ -8,33 +8,40 @@ export default function Home() {
 
   useEffect(() => {
     if (miniAppContainer.current) {
-      // MiniApp embedini fonksiyon olarak çağırıyoruz
+      // MiniApp SDK fonksiyon olarak çağrılıyor
       MiniApp({
         appId: "fortune-miniapp",
         element: miniAppContainer.current,
-        onEvent: (event) => {
-          // Örn: reward veya başka eventleri yakala
-          if (event.type === "fortuneRevealed") {
-            setFortune(event.data.fortuneText);
-          }
-        },
       });
     }
   }, []);
 
+  const handleReveal = () => {
+    // Örnek fortune seçimi
+    const fortunes = [
+      "🍀 Good luck is coming your way!",
+      "⚡ Be ready for surprises!",
+      "🌸 Today is a calm day.",
+      "🔥 Challenge yourself!"
+    ];
+    const randomIndex = Math.floor(Math.random() * fortunes.length);
+    setFortune(fortunes[randomIndex]);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-2xl mb-6">🎲 Fortune Mini App</h1>
+      <h1 className="text-2xl font-bold mb-6">Fortune Mini App</h1>
 
-      {/* MiniApp embed alanı */}
-      <div
-        ref={miniAppContainer}
-        className="w-full max-w-md mb-6"
-        style={{ height: "400px", border: "1px solid #ccc" }}
-      ></div>
+      {/* MiniApp embed */}
+      <div className="w-full max-w-md mb-6" ref={miniAppContainer}></div>
 
-      {/* Fortune sonucu */}
       <p className="text-xl mb-4">{fortune}</p>
+      <button
+        onClick={handleReveal}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Reveal Fortune
+      </button>
     </div>
   );
 }
