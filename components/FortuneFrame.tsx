@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { initMiniApp } from "@farcaster/miniapp-sdk";
+import initMiniApp from "@farcaster/miniapp-sdk"; // default export olarak
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
@@ -22,7 +22,7 @@ export default function FortuneFrame() {
   };
 
   useEffect(() => {
-    initMiniApp("fortune-miniapp");
+    initMiniApp("fortune-miniapp"); // MiniApp başlatılıyor
   }, []);
 
   return (
