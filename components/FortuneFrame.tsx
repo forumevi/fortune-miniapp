@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MiniApp } from "@farcaster/miniapp-sdk";
+import MiniApp from "@farcaster/miniapp-sdk";
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
