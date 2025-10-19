@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import MiniAppSDK from "@farcaster/miniapp-sdk";
+import React, { useState } from "react";
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
@@ -20,11 +19,6 @@ export default function FortuneFrame() {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
   };
-
-  useEffect(() => {
-    // MiniApp başlatılıyor
-    MiniAppSDK.init({ appId: "fortune-miniapp" });
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
