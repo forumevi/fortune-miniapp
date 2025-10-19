@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import MiniAppFrame from "@farcaster/miniapp-sdk";
+import { MiniApp } from "@farcaster/miniapp-sdk";
 
 export default function FortuneFrame() {
   const [fortune, setFortune] = useState<string>(
@@ -22,7 +22,7 @@ export default function FortuneFrame() {
   };
 
   return (
-    <MiniAppFrame>
+    <MiniApp>
       <div className="flex flex-col items-center justify-center h-screen text-center bg-gradient-to-b from-purple-50 to-purple-200">
         <h1 className="text-3xl font-bold text-purple-700 mb-6">
           🧿 Fortune MiniApp
@@ -35,6 +35,6 @@ export default function FortuneFrame() {
           Reveal My Fortune ✨
         </button>
       </div>
-    </MiniAppFrame>
+    </MiniApp>
   );
 }
