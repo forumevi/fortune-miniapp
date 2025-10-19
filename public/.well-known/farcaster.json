@@ -1,0 +1,12 @@
+{
+  "id": "fortune-miniapp",
+  "name": "Fortune MiniApp",
+  "version": "0.1.0",
+  "description": "Reveal your daily fortune in a fun way!",
+  "url": "https://fortune-miniapps.vercel.app",
+  "icon": "https://fortune-miniapps.vercel.app/favicon.ico",
+  "developer": {
+    "name": "Your Name",
+    "url": "https://your-website.com"
+  }
+}
