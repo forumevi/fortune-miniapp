@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MiniAppSDK } from "@farcaster/miniapp-sdk";
+import MiniAppSDK from "@farcaster/miniapp-sdk"; // <- default import
 
 export default function Home() {
   const [fortune, setFortune] = useState<string>(
