@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
+import { sdk } from "@farcaster/frame-sdk"; // ✅ Farcaster SDK eklendi
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
+  const [isInApp, setIsInApp] = useState(false);
 
   const fortunes = [
     "✨ Great opportunities await you!",
@@ -13,6 +15,17 @@ export default function Home() {
     "🌙 Trust your intuition; it won’t fail you.",
     "🔥 Passion drives success today."
   ];
+
+  useEffect(() => {
+    // Farcaster MiniApp ortamında çalıştığını algıla
+    const ua = navigator.userAgent || "";
+    if (/Warpcast/i.test(ua)) {
+      setIsInApp(true);
+    }
+
+    // ✅ Warpcast splash screen kaldırma
+    sdk.actions.ready();
+  }, []);
 
   const connectWallet = async () => {
     try {
@@ -76,7 +89,9 @@ export default function Home() {
         <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Fortune Teller 🔮</h1>
         <p style={{ fontSize: "1.25rem", marginBottom: "2rem" }}>{fortune}</p>
 
-        {!walletConnected ? (
+        {isInApp ? (
+          <p style={{ fontSize: "1rem" }}>🧿 Open this in your browser to connect wallet</p>
+        ) : !walletConnected ? (
           <button
             onClick={connectWallet}
             style={{
