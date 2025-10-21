@@ -1,15 +1,15 @@
 {
   "id": "fortune-miniapp",
-  "name": "Fortune MiniApp",
-  "version": "0.1.0",
-  "description": "Reveal your daily fortune in a fun way!",
+  "name": "Fortune Teller 🔮",
+  "version": "1.0.0",
+  "description": "Get your daily fortune and share it on Farcaster!",
   "url": "https://fortune-miniapp-six.vercel.app",
-  "icon": "https://fortune-miniapp-six.vercel.app/favicon.ico",
+  "icon": "https://fortune-miniapp-six.vercel.app/icon.png",
   "developer": {
-    "name": "Your Name",
-    "url": "https://fortune-miniapp-six.vercel.app/"
+    "name": "forumevi",
+    "url": "https://farcaster.xyz/forumevi"
   },
- "accountAssociation": {
+  "accountAssociation": {
     "header": "eyJmaWQiOjUyMDE2OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDI3N2ZjMTRmNjkwNjA2RWMzMUYwMDYyMDI0NjRFQTU2M2VmRkU2QzIifQ",
     "payload": "eyJkb21haW4iOiJmb3J0dW5lLW1pbmlhcHAtc2l4LnZlcmNlbC5hcHAifQ",
     "signature": "4+mhGvHVeBvzVlX6656VDnfOjQgQnXO0pWiuz2ly5INsV2w4vQWPwxZhVUkiiKtXc91Wc2Bxu8FMlVp2a8k5/xs="
