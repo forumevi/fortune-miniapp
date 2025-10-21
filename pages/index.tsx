@@ -54,36 +54,10 @@ export default function Home() {
 
   return (
     <>
-     <Head>
-  <title>Fortune Teller 🔮</title>
-  <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
-
-  {/* ✅ Farcaster MiniApp / Launch Frame embed */}
-  <meta
-    name="fc:miniapp"
-    content={JSON.stringify({
-      version: "1",
-      imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
-      button: {
-        title: "Reveal Fortune",
-        action: {
-          // Validator şu an "launch_frame" bekliyor, ona uyuyoruz
-          type: "launch_frame",
-          name: "Fortune Teller", // ✅ Zorunlu alan (validator’daki 'name not set' hatasını giderir)
-          url: "https://fortune-miniapp-six.vercel.app"
-        }
-      }
-    })}
-  />
-
-  {/* OG / Twitter */}
-  <meta property="og:title" content="Fortune Teller 🔮" />
-  <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
-  <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-  <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
-  <meta name="twitter:card" content="summary_large_image" />
-</Head>
-
+      <Head>
+        <title>Fortune Teller 🔮</title>
+        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
+      </Head>
 
       <div
         style={{
@@ -137,4 +111,3 @@ export default function Home() {
     </>
   );
 }
-
