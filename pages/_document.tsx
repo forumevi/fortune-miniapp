@@ -5,12 +5,36 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Farcaster frame meta tags */}
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-        <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
-        <meta property="fc:frame:button:1" content="Reveal Fortune" />
-        <meta property="fc:frame:button:1:action" content="post" />
+        {/* Embed için tek meta */}
+        <meta
+          name="fc:miniapp"
+          content={JSON.stringify({
+            version: "1",
+            imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
+            button: {
+              title: "Reveal Fortune",
+              action: {
+                type: "launch_miniapp",
+                url: "https://fortune-miniapp-six.vercel.app"
+              }
+            }
+          })}
+        />
+        {/* Eğer geriye dönük destek istersen altına: */}
+        <meta
+          name="fc:frame"
+          content={JSON.stringify({
+            version: "1",
+            imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
+            button: {
+              title: "Reveal Fortune",
+              action: {
+                type: "launch_frame",
+                url: "https://fortune-miniapp-six.vercel.app"
+              }
+            }
+          })}
+        />
       </Head>
       <body>
         <Main />
