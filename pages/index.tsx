@@ -59,7 +59,7 @@ export default function Home() {
   <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
 
   {/* Farcaster MiniApp embed meta */}
- <meta
+<meta
   name="fc:miniapp"
   content={JSON.stringify({
     version: "1",
@@ -68,7 +68,7 @@ export default function Home() {
       title: "Reveal Fortune",
       action: {
         type: "launch_miniapp",
-        label: "Reveal Fortune", // ✅ BU EKLENDİ
+        label: "Reveal Fortune", // ✅ ZORUNLU ALAN
         name: "Fortune Teller",
         url: "https://fortune-miniapp-six.vercel.app"
       }
