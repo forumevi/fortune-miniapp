@@ -2,21 +2,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ethers } from "ethers";
 
+// 🧩 TypeScript için window.ethereum tanımı
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
-  const [txHash, setTxHash] = useState<string | null>(null);
 
   const fortunes = [
-    "Great luck awaits you today!",
-    "A pleasant surprise is on its way.",
-    "You will meet someone who changes your perspective.",
-    "An opportunity will appear — be ready.",
-    "Your patience will pay off soon.",
-    "New beginnings are on the horizon.",
+    "✨ Great success is coming your way!",
+    "🌈 A pleasant surprise awaits you soon.",
+    "🔥 You’ll conquer a big challenge today.",
+    "🍀 Luck favors you — take the leap!",
+    "💎 Something valuable will find its way to you."
   ];
 
-  // Blockchain’e yazma fonksiyonu (Base ağında)
+  // Fortune blockchain’e kaydetme
   const saveToBlockchain = async (fortune: string) => {
     try {
       if (!window.ethereum) {
@@ -24,90 +29,42 @@ export default function Home() {
         return;
       }
 
-      // Base mainnet chain ID = 0x2105
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x2105" }],
-      });
-
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
-      // Fortune mesajını Base ağına data olarak yaz
       const tx = await signer.sendTransaction({
-        to: signer.address,
+        to: "0x0000000000000000000000000000000000000000", // boş hedef, sadece demo
         value: 0n,
-        data: ethers.encodeBytes32String(fortune),
+        data: ethers.toUtf8Bytes(fortune)
       });
 
-      setTxHash(tx.hash);
-    } catch (err) {
-      console.error("Blockchain save error:", err);
-      alert("Error while saving to blockchain. Check console for details.");
+      console.log("Transaction sent:", tx);
+      alert(`Fortune saved to blockchain!\nTx hash: ${tx.hash}`);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to save fortune to blockchain!");
     }
   };
 
-  const revealFortune = async () => {
-    const random = Math.floor(Math.random() * fortunes.length);
-    const chosen = fortunes[random];
-    setFortune(chosen);
-    await saveToBlockchain(chosen);
+  // Rastgele fortune seç
+  const revealFortune = () => {
+    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+    setFortune(random);
+    saveToBlockchain(random);
   };
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        background: "linear-gradient(135deg, #3a0ca3, #7209b7, #f72585)",
-        color: "white",
-        textAlign: "center",
-        padding: "2rem",
-      }}
-    >
-      <img
-        src="/icon.png"
-        alt="Fortune Icon"
-        style={{ width: "100px", marginBottom: "1rem" }}
-      />
-      <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Fortune Teller 🔮</h1>
-      <p style={{ fontSize: "1.2rem", marginBottom: "2rem" }}>{fortune}</p>
-
-      <button
-        onClick={revealFortune}
-        style={{
-          backgroundColor: "#ffbe0b",
-          border: "none",
-          borderRadius: "10px",
-          padding: "0.8rem 1.5rem",
-          fontSize: "1rem",
-          fontWeight: "bold",
-          cursor: "pointer",
-          color: "#333",
-        }}
-      >
-        Reveal Fortune ✨
-      </button>
-
-      {txHash && (
-        <p style={{ marginTop: "1rem" }}>
-          🔗 Saved on Base:{" "}
-          <a
-            href={`https://basescan.org/tx/${txHash}`}
-            target="_blank"
-            rel="noreferrer"
-            style={{ color: "#fbd38d" }}
-          >
-            View Transaction
-          </a>
-        </p>
-      )}
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-700 to-indigo-900 text-white p-6">
+      <div ref={containerRef} className="w-full max-w-md text-center">
+        <h1 className="text-4xl font-bold mb-6">Fortune Teller 🔮</h1>
+        <p className="text-xl mb-4">{fortune}</p>
+        <button
+          onClick={revealFortune}
+          className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition"
+        >
+          Reveal Fortune
+        </button>
+      </div>
+    </main>
   );
 }
