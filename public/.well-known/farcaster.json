@@ -3,11 +3,11 @@
   "name": "Fortune MiniApp",
   "version": "0.1.0",
   "description": "Reveal your daily fortune in a fun way!",
-  "url": "https://fortune-miniapps.vercel.app",
-  "icon": "https://fortune-miniapps.vercel.app/favicon.ico",
+  "url": "https://fortune-miniapp-six.vercel.app",
+  "icon": "https://fortune-miniapp-six.vercel.app/favicon.ico",
   "developer": {
     "name": "Your Name",
-    "url": "https://your-website.com"
+    "url": "https://fortune-miniapp-six.vercel.app/"
   },
  "accountAssociation": {
     "header": "eyJmaWQiOjUyMDE2OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDI3N2ZjMTRmNjkwNjA2RWMzMUYwMDYyMDI0NjRFQTU2M2VmRkU2QzIifQ",
