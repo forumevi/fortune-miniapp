@@ -59,21 +59,22 @@ export default function Home() {
   <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
 
   {/* Farcaster MiniApp embed meta */}
-  <meta
-    name="fc:miniapp"
-    content={JSON.stringify({
-      version: "1",
-      imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
-      button: {
-        title: "Reveal Fortune",
-        action: {
-          type: "launch_miniapp",
-          name: "Fortune Teller",        // ✅ GEREKLİ ALAN
-          url: "https://fortune-miniapp-six.vercel.app"
-        }
+ <meta
+  name="fc:miniapp"
+  content={JSON.stringify({
+    version: "1",
+    imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
+    button: {
+      title: "Reveal Fortune",
+      action: {
+        type: "launch_miniapp",
+        label: "Reveal Fortune", // ✅ BU EKLENDİ
+        name: "Fortune Teller",
+        url: "https://fortune-miniapp-six.vercel.app"
       }
-    })}
-  />
+    }
+  })}
+/>
 
   {/* OG / Twitter */}
   <meta property="og:title" content="Fortune Teller 🔮" />
