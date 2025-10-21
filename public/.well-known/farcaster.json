@@ -3,7 +3,7 @@
   "name": "Fortune Teller 🔮",
   "version": "1.0.0",
   "description": "Get your daily fortune and share it on Farcaster!",
-  "url": "https://fortune-miniapp-six.vercel.app",
+  "url": "https://fortune-miniapp-six.vercel.app/",
   "icon": "https://fortune-miniapp-six.vercel.app/icon.png",
   "developer": {
     "name": "forumevi",
