@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { initMiniApp } from "@farcaster/miniapp-sdk";
+import initMiniApp from "@farcaster/miniapp-sdk"; // ✅ DÜZELTİLDİ
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
