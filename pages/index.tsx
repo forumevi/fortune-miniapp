@@ -1,4 +1,3 @@
-// pages/index.tsx
 import React, { useState } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
@@ -7,7 +6,6 @@ export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
 
-  // Basit fortune listesi
   const fortunes = [
     "✨ Great opportunities await you!",
     "🍀 Luck favors you — take the leap!",
@@ -16,7 +14,6 @@ export default function Home() {
     "🔥 Passion drives success today."
   ];
 
-  // Cüzdan bağlama
   const connectWallet = async () => {
     try {
       if (typeof window !== "undefined" && (window as any).ethereum) {
@@ -31,28 +28,21 @@ export default function Home() {
     }
   };
 
-  // Blockchain’e yazma (demo amaçlı)
   const saveToBlockchain = async (fortuneText: string) => {
     try {
-      if (typeof window === "undefined" || !(window as any).ethereum) {
-        alert("Please connect your wallet first!");
-        return;
-      }
-
+      if (typeof window === "undefined" || !(window as any).ethereum) return;
       const provider = new ethers.BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
 
       const tx = await signer.sendTransaction({
-        to: "0x0000000000000000000000000000000000000000", // demo hedef
+        to: "0x0000000000000000000000000000000000000000",
         value: 0n,
         data: ethers.hexlify(ethers.toUtf8Bytes(fortuneText))
       });
 
       console.log("Transaction sent:", tx);
-      alert("Fortune recorded on Base chain!");
     } catch (err) {
       console.error(err);
-      alert("Failed to record fortune.");
     }
   };
 
@@ -66,16 +56,14 @@ export default function Home() {
     <>
       <Head>
         <title>Fortune Teller 🔮</title>
-        <meta name="description" content="Reveal your daily fortune on Farcaster!" />
+        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
 
-        {/* OG tags */}
         <meta property="og:title" content="Fortune Teller 🔮" />
         <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
         <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
         <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
         <meta property="og:type" content="website" />
 
-        {/* Farcaster Embed / Frame Meta */}
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
         <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
