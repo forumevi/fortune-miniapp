@@ -21,7 +21,7 @@ export default function Home() {
     "💎 Something valuable will find its way to you."
   ];
 
-  // Fortune blockchain’e kaydetme
+  // 🪙 Fortune blockchain'e kaydetme
   const saveToBlockchain = async (fortune: string) => {
     try {
       if (!window.ethereum) {
@@ -32,10 +32,13 @@ export default function Home() {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
+      // 🧠 data'yı hex string'e dönüştür
+      const hexData = ethers.hexlify(ethers.toUtf8Bytes(fortune));
+
       const tx = await signer.sendTransaction({
-        to: "0x0000000000000000000000000000000000000000", // boş hedef, sadece demo
+        to: "0x0000000000000000000000000000000000000000",
         value: 0n,
-        data: ethers.toUtf8Bytes(fortune)
+        data: hexData
       });
 
       console.log("Transaction sent:", tx);
@@ -46,7 +49,6 @@ export default function Home() {
     }
   };
 
-  // Rastgele fortune seç
   const revealFortune = () => {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
