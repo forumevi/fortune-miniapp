@@ -4,15 +4,21 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json({
     id: "fortune-miniapp",
-    name: "Fortune MiniApp",
-    description: "Reveal your daily fortune ✨",
+    name: "Fortune Teller 🔮",
+    description: "Get your daily fortune and share it on Farcaster!",
     icon: "https://fortune-miniapp-six.vercel.app/icon.png",
     url: "https://fortune-miniapp-six.vercel.app",
     version: "1.0.0",
-    tags: ["fortune", "fun", "daily", "miniapp"],
+    tags: ["fun", "fortune", "daily", "miniapp"],
     developer: {
-      name: "reddawn",
-      url: "https://farcaster.xyz/reddawn",
+      name: "forumevi",
+      url: "https://farcaster.xyz/forumevi",
     },
+    embeds: [
+      {
+        type: "miniapp",
+        url: "https://fortune-miniapp-six.vercel.app",
+      },
+    ],
   });
 }
