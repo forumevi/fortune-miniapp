@@ -1,59 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
-import { sdk } from "@farcaster/miniapp-sdk";
+import React, { useState } from "react";
+import Head from "next/head";
 
 export default function Home() {
-  const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const init = async () => {
-      try {
-        await sdk.actions.ready(); // ✅ Farcaster MiniApp SDK'yi hazırla
-        console.log("✅ MiniApp SDK ready");
-      } catch (error) {
-        console.error("❌ MiniApp SDK initialization failed:", error);
-      }
-    };
-    init();
-  }, []);
-
-  const fortunes = [
-    "✨ Büyük bir şans seni bekliyor!",
-    "🌙 Bugün evrenden bir mesaj alacaksın.",
-    "🔥 Cesaretin seni başarıya götürecek.",
-    "💎 Gerçek değerini bilen biriyle tanışacaksın.",
-    "🌞 İç huzurun seni bulmak üzere.",
-  ];
+  const [fortune, setFortune] = useState("🔮 Tap below to reveal your fortune!");
 
   const revealFortune = () => {
-    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    setFortune(randomFortune);
+    const fortunes = [
+      "✨ Great luck awaits you today!",
+      "🌙 Trust your intuition.",
+      "🔥 A bold move will bring rewards.",
+      "🌈 Something unexpected brings joy.",
+      "💫 The universe is aligning for you!"
+    ];
+    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+    setFortune(random);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-50 to-purple-200 text-center p-4">
-      <h1 className="text-3xl font-bold text-purple-700 mb-6">
-        🧿 Fortune MiniApp
-      </h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-6">
+      <Head>
+        <title>🧿 Fortune MiniApp</title>
+        <meta name="description" content="Reveal your daily fortune ✨" />
+      </Head>
 
-      {/* Farcaster SDK container */}
-      <div
-        ref={containerRef}
-        className="w-full max-w-md mb-6 border border-purple-300 rounded-lg p-4 bg-white shadow"
-      />
-
-      <p className="text-xl mb-4">{fortune}</p>
+      <h1 className="text-4xl font-bold mb-6">🧿 Fortune MiniApp</h1>
+      <p className="text-xl mb-8 text-center">{fortune}</p>
 
       <button
         onClick={revealFortune}
-        className="px-6 py-3 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition"
+        className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all"
       >
-        Reveal My Fortune 🔮
+        Reveal Fortune ✨
       </button>
-
-      <footer className="mt-10 text-sm text-gray-500">
-        Powered by Farcaster MiniApp SDK
-      </footer>
     </div>
   );
 }
