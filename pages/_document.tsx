@@ -5,14 +5,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* ✅ Corrected OG tags */}
         <meta property="og:title" content="🧿 Fortune MiniApp" />
         <meta property="og:description" content="Tap to reveal your daily fortune ✨" />
         <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
         <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
         <meta name="twitter:card" content="summary_large_image" />
 
-        {/* ✅ Farcaster Frame meta */}
+        {/* Farcaster Frame meta tags */}
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
         <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
