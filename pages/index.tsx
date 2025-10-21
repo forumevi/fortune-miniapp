@@ -83,7 +83,6 @@ export default function Home() {
   <meta name="twitter:card" content="summary_large_image" />
 </Head>
 
-
       <div
         style={{
           height: "100vh",
