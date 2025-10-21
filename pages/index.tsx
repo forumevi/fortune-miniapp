@@ -56,18 +56,21 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Fortune Teller 🔮</title>
-        <meta name="description" content="Reveal your daily fortune on Farcaster!" />
-        <meta property="og:title" content="Fortune Teller 🔮" />
-        <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
-        <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-        <meta property="fc:frame:button:1" content="Reveal Fortune" />
-        <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:button:1:target" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
-      </Head>
+  <Head>
+  <title>Fortune Teller 🔮</title>
+  <meta name="description" content="Reveal your daily fortune on Farcaster!" />
+  <meta property="og:title" content="Fortune Teller 🔮" />
+  <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
+  <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+
+  {/* 🔮 Farcaster frame meta */}
+  <meta property="fc:frame" content="vNext" />
+  <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+  <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
+  <meta property="fc:frame:button:1" content="Reveal Fortune" />
+  <meta property="fc:frame:button:1:action" content="post" />
+</Head>
+
 
       <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 to-indigo-800 text-white p-6 text-center">
         <h1 className="text-4xl font-bold mb-6">Fortune Teller 🔮</h1>
