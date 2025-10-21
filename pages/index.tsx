@@ -59,17 +59,22 @@ export default function Home() {
   <Head>
   <title>Fortune Teller 🔮</title>
   <meta name="description" content="Reveal your daily fortune on Farcaster!" />
+
+  {/* Open Graph */}
   <meta property="og:title" content="Fortune Teller 🔮" />
   <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
   <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+  <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
+  <meta property="og:type" content="website" />
 
-  {/* 🔮 Farcaster frame meta */}
+  {/* Farcaster Frame Meta */}
   <meta property="fc:frame" content="vNext" />
-  <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
   <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
+  <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
   <meta property="fc:frame:button:1" content="Reveal Fortune" />
   <meta property="fc:frame:button:1:action" content="post" />
 </Head>
+
 
 
       <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 to-indigo-800 text-white p-6 text-center">
