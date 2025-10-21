@@ -1,11 +1,13 @@
-// pages/_document.tsx
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Embed için tek meta */}
+        <title>Fortune Teller 🔮</title>
+        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
+
+        {/* ✅ Farcaster MiniApp Embed */}
         <meta
           name="fc:miniapp"
           content={JSON.stringify({
@@ -14,27 +16,29 @@ export default function Document() {
             button: {
               title: "Reveal Fortune",
               action: {
-                type: "launch_miniapp",
+                type: "launch_frame",      // validator bunu bekliyor
+                name: "Fortune Teller",     // ⚡ zorunlu alan — eksikse Embed Valid ✕ olur
                 url: "https://fortune-miniapp-six.vercel.app"
               }
             }
           })}
         />
-        {/* Eğer geriye dönük destek istersen altına: */}
+
+        {/* OG / Twitter tags */}
+        <meta property="og:title" content="Fortune Teller 🔮" />
         <meta
-          name="fc:frame"
-          content={JSON.stringify({
-            version: "1",
-            imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
-            button: {
-              title: "Reveal Fortune",
-              action: {
-                type: "launch_frame",
-                url: "https://fortune-miniapp-six.vercel.app"
-              }
-            }
-          })}
+          property="og:description"
+          content="Reveal your daily fortune and share it on Farcaster!"
         />
+        <meta
+          property="og:image"
+          content="https://fortune-miniapp-six.vercel.app/icon.png"
+        />
+        <meta
+          property="og:url"
+          content="https://fortune-miniapp-six.vercel.app"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <body>
         <Main />
