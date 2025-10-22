@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
+import { sdk } from "@farcaster/miniapp-sdk"; // 👈 Farcaster SDK eklendi
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
+
+  // 👇 MiniApp splash screen'i kapatmak için
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        sdk.actions.ready();
+        console.log("✅ Farcaster MiniApp ready() called");
+      } catch (e) {
+        console.warn("⚠️ sdk.ready() error:", e);
+      }
+    }
+  }, []);
 
   const fortunes = [
     "✨ Great opportunities await you!",
@@ -56,7 +69,10 @@ export default function Home() {
     <>
       <Head>
         <title>Fortune Teller 🔮</title>
-        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
+        <meta
+          name="description"
+          content="Reveal your daily fortune and share it on Farcaster!"
+        />
       </Head>
 
       <div
