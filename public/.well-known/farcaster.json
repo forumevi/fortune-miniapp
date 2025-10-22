@@ -2,21 +2,21 @@
   "frame": {
     "name": "Fortune Teller 🔮",
     "version": "1",
-    "iconUrl": "https://https://fortune-miniapp-six.vercel.app//icon.png",
-    "homeUrl": "https://https://fortune-miniapp-six.vercel.app/",
-    "imageUrl": "https://https://fortune-miniapp-six.vercel.app//image.png",
-    "buttonTitle": "Reveal Fortune",
-    "splashImageUrl": "https://https://fortune-miniapp-six.vercel.app//splash.png",
+    "iconUrl": "https://https://fortune-miniapp-six.vercel.app/icon.png",
+    "homeUrl": "https://https://fortune-miniapp-six.vercel.app",
+    "imageUrl": "https://https://fortune-miniapp-six.vercel.app/image.png",
+    "splashImageUrl": "https://https://fortune-miniapp-six.vercel.app/splash.png",
     "splashBackgroundColor": "#6b46c1",
-    "webhookUrl": "https://https://fortune-miniapp-six.vercel.app//api/webhook",
-    "subtitle": "Reveal your daily fortune and share it on Farcaster",
-    "description": "Reveal your daily fortune and share it on Farcaster",
+    "webhookUrl": "https://https://fortune-miniapp-six.vercel.app/api/webhook",
+    "subtitle": "Reveal Fortune",
+    "description": "Reveal your daily fortune and share it on Farcaster!",
     "primaryCategory": "social",
     "tags": [
-      "base",
-      "fun",
+      "fortune",
+      "luck",
       "miniapp",
-      "luck"
+      "farcaster",
+      "fun"
     ]
   },
   "accountAssociation": {
