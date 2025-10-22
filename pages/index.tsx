@@ -30,23 +30,29 @@ export default function Home() {
   ];
 
   const connectWallet = async () => {
-    try {
-      if (typeof window !== "undefined" && (window as any).ethereum) {
-        await (window as any).ethereum.request({ method: "eth_requestAccounts" });
+  try {
+    if (typeof window !== "undefined" && (window as any).ethereum) {
+      await (window as any).ethereum.request({ method: "eth_requestAccounts" });
+      setWalletConnected(true);
+      alert("Wallet connected successfully!");
+    } else if (sdk?.wallet) {
+      // ✅ Farcaster MiniApp ortamında SDK ile Base Wallet bağlantısı
+      const accounts = await sdk.wallet.requestAccounts();
+      if (accounts && accounts.length > 0) {
+        console.log("✅ Connected Farcaster wallet:", accounts[0]);
         setWalletConnected(true);
-        alert("Wallet connected successfully!");
-      } else if ((window as any).farcaster?.wallet) {
-        const account = await (window as any).farcaster.wallet.connect();
-        console.log("Farcaster wallet connected:", account);
-        setWalletConnected(true);
-        alert("Farcaster wallet connected!");
+        alert(`Connected wallet: ${accounts[0]}`);
       } else {
-        alert("No wallet detected. Please install MetaMask or open in Farcaster!");
+        alert("No account returned from Farcaster wallet.");
       }
-    } catch (err) {
-      console.error(err);
+    } else {
+      alert("No wallet detected. Please install MetaMask or open in Farcaster!");
     }
-  };
+  } catch (err) {
+    console.error("Wallet connection error:", err);
+    alert("Wallet connection failed. Check console for details.");
+  }
+};
 
   const saveToBlockchain = async (fortuneText: string) => {
     try {
