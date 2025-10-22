@@ -1,15 +1,25 @@
+// pages/index.tsx
+
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
+import { sdk } from "@farcaster/miniapp-sdk";
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
 
-  // 👇 bu kısım READY hatasını %100 çözer
-  if (typeof window !== "undefined" && (window as any).farcaster?.actions?.ready) {
-    (window as any).farcaster.actions.ready().catch(() => {});
-  }
+  useEffect(() => {
+    const init = async () => {
+      try {
+        await sdk.actions.ready();
+        console.log("✅ Farcaster MiniApp: sdk.actions.ready() called");
+      } catch (err) {
+        console.error("Farcaster MiniApp ready() error:", err);
+      }
+    };
+    init();
+  }, []);
 
   const fortunes = [
     "✨ Great opportunities await you!",
