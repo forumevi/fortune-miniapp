@@ -19,9 +19,9 @@
       "fun"
     ]
   },
-  "accountAssociation": {
+ "accountAssociation": {
     "header": "eyJmaWQiOjUyMDE2OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDI3N2ZjMTRmNjkwNjA2RWMzMUYwMDYyMDI0NjRFQTU2M2VmRkU2QzIifQ",
-    "payload": "eyJkb21haW4iOiJodHRwczovL2ZvcnR1bmUtbWluaWFwcC1zaXgudmVyY2VsLmFwcC8ifQ",
-    "signature": "p0C7I8t8Xb1dN1f96K2S2RMeRqJzcPo7Jy7hgiwRRRYYmeIOjRecpEYdQhNy2p9x3vtTovhXj3707+ECdbu8gxw="
+    "payload": "eyJkb21haW4iOiJmb3J0dW5lLW1pbmlhcHAtc2l4LnZlcmNlbC5hcHAifQ",
+    "signature": "4+mhGvHVeBvzVlX6656VDnfOjQgQnXO0pWiuz2ly5INsV2w4vQWPwxZhVUkiiKtXc91Wc2Bxu8FMlVp2a8k5/xs="
   }
 }
