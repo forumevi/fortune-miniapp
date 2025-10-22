@@ -1,23 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
-import { sdk } from "@farcaster/miniapp-sdk";
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
-
-  useEffect(() => {
-    async function init() {
-      try {
-        await sdk.actions.ready(); // ✅ Farcaster splash ekranını kapatır
-        console.log("✅ sdk.actions.ready() called");
-      } catch (err) {
-        console.error("SDK init error:", err);
-      }
-    }
-    init();
-  }, []);
 
   const fortunes = [
     "✨ Great opportunities await you!",
@@ -70,38 +57,6 @@ export default function Home() {
       <Head>
         <title>Fortune Teller 🔮</title>
         <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
-
-        {/* 🧿 MiniApp JSON (yeni sistem) */}
-        <meta
-          name="fc:miniapp"
-          content={JSON.stringify({
-            version: "1",
-            imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
-            button: {
-              title: "Reveal Fortune",
-              action: {
-                type: "launch_miniapp",
-                label: "Reveal Fortune",
-                name: "Fortune Teller",
-                url: "https://fortune-miniapp-six.vercel.app"
-              }
-            }
-          })}
-        />
-
-        {/* 🪄 Frame vNext fallback (validator için geçerli meta) */}
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-        <meta property="fc:frame:button:1" content="Reveal Fortune" />
-        <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
-
-        {/* OG/Twitter */}
-        <meta property="og:title" content="Fortune Teller 🔮" />
-        <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
-        <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
-        <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
-        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <div
