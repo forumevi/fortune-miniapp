@@ -7,15 +7,26 @@ import { sdk } from "@farcaster/miniapp-sdk";
 export default function Home() {
   const [fortune, setFortune] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isMiniApp, setIsMiniApp] = useState(false);
 
   useEffect(() => {
     async function init() {
       try {
-        // MiniApp SDK başlatılıyor
-        await sdk.actions.ready(); // ✅ Splash screen’i kaldırır
+        // Farcaster MiniApp ortamında mıyız?
+        const miniApp = await sdk.context.isMiniApp();
+        setIsMiniApp(miniApp);
+
+        if (miniApp) {
+          console.log("✅ Running inside Farcaster MiniApp");
+          await sdk.actions.ready(); // 🔥 Splash screen burada kapanır
+        } else {
+          console.warn("⚠️ Not inside Farcaster MiniApp context");
+        }
+
         setLoading(false);
       } catch (err) {
         console.error("SDK init error:", err);
+        setLoading(false);
       }
     }
 
@@ -37,15 +48,16 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-white bg-purple-800">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-purple-900 text-white">
         <p>🔮 MiniApp Yükleniyor...</p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-700 to-indigo-900 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-700 to-indigo-900 text-white p-6">
       <h1 className="text-3xl font-bold mb-6">Fortune Teller 🔮</h1>
+
       <button
         onClick={revealFortune}
         className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full text-lg font-medium shadow-lg transition-all"
@@ -58,7 +70,12 @@ export default function Home() {
           <p className="text-xl">{fortune}</p>
         </div>
       )}
+
+      {!isMiniApp && (
+        <p className="mt-10 text-sm opacity-70">
+          (⚠️ Not running in Farcaster MiniApp — open from Farcaster mobile app)
+        </p>
+      )}
     </div>
   );
 }
-
