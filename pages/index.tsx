@@ -10,8 +10,7 @@ export default function Home() {
   useEffect(() => {
     async function init() {
       try {
-        // MiniApp SDK init - splash screen'i kapatır
-        await sdk.actions.ready();
+        await sdk.actions.ready(); // ✅ Farcaster splash ekranını kapatır
         console.log("✅ sdk.actions.ready() called");
       } catch (err) {
         console.error("SDK init error:", err);
@@ -72,7 +71,7 @@ export default function Home() {
         <title>Fortune Teller 🔮</title>
         <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
 
-        {/* Farcaster MiniApp Embed Meta */}
+        {/* 🧿 MiniApp JSON (yeni sistem) */}
         <meta
           name="fc:miniapp"
           content={JSON.stringify({
@@ -90,7 +89,14 @@ export default function Home() {
           })}
         />
 
-        {/* OG / Twitter */}
+        {/* 🪄 Frame vNext fallback (validator için geçerli meta) */}
+        <meta property="fc:frame" content="vNext" />
+        <meta property="fc:frame:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+        <meta property="fc:frame:button:1" content="Reveal Fortune" />
+        <meta property="fc:frame:button:1:action" content="post" />
+        <meta property="fc:frame:post_url" content="https://fortune-miniapp-six.vercel.app/api/metadata" />
+
+        {/* OG/Twitter */}
         <meta property="og:title" content="Fortune Teller 🔮" />
         <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
         <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
