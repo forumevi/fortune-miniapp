@@ -1,23 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { ethers } from "ethers";
-import { sdk } from "@farcaster/miniapp-sdk"; // 👈 Farcaster SDK eklendi
 
 export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
-
-  // 👇 MiniApp splash screen'i kapatmak için
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        sdk.actions.ready();
-        console.log("✅ Farcaster MiniApp ready() called");
-      } catch (e) {
-        console.warn("⚠️ sdk.ready() error:", e);
-      }
-    }
-  }, []);
 
   const fortunes = [
     "✨ Great opportunities await you!",
@@ -27,14 +14,22 @@ export default function Home() {
     "🔥 Passion drives success today."
   ];
 
+  // ✅ Farcaster SDK fallback destekli wallet bağlantısı
   const connectWallet = async () => {
     try {
       if (typeof window !== "undefined" && (window as any).ethereum) {
+        // Tarayıcı ortamı (örneğin MetaMask)
         await (window as any).ethereum.request({ method: "eth_requestAccounts" });
         setWalletConnected(true);
         alert("Wallet connected successfully!");
+      } else if ((window as any).farcaster?.wallet) {
+        // Farcaster MiniApp ortamı
+        const account = await (window as any).farcaster.wallet.connect();
+        console.log("Farcaster wallet connected:", account);
+        setWalletConnected(true);
+        alert("Farcaster wallet connected!");
       } else {
-        alert("No wallet detected. Please install MetaMask or Base wallet!");
+        alert("No wallet detected. Please install MetaMask or open in Farcaster!");
       }
     } catch (err) {
       console.error(err);
@@ -69,10 +64,14 @@ export default function Home() {
     <>
       <Head>
         <title>Fortune Teller 🔮</title>
-        <meta
-          name="description"
-          content="Reveal your daily fortune and share it on Farcaster!"
-        />
+        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
+
+        {/* OG / Twitter meta tags */}
+        <meta property="og:title" content="Fortune Teller 🔮" />
+        <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
+        <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+        <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <div
