@@ -1,81 +1,152 @@
-// pages/index.tsx
-"use client";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
+import { ethers } from "ethers";
 import { sdk } from "@farcaster/miniapp-sdk";
 
 export default function Home() {
-  const [fortune, setFortune] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isMiniApp, setIsMiniApp] = useState(false);
+  const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
+  const [walletConnected, setWalletConnected] = useState(false);
 
   useEffect(() => {
     async function init() {
       try {
-        // Farcaster MiniApp ortamında mıyız?
-        const miniApp = await sdk.context.isMiniApp();
-        setIsMiniApp(miniApp);
-
-        if (miniApp) {
-          console.log("✅ Running inside Farcaster MiniApp");
-          await sdk.actions.ready(); // 🔥 Splash screen burada kapanır
-        } else {
-          console.warn("⚠️ Not inside Farcaster MiniApp context");
-        }
-
-        setLoading(false);
+        // MiniApp SDK init - splash screen'i kapatır
+        await sdk.actions.ready();
+        console.log("✅ sdk.actions.ready() called");
       } catch (err) {
         console.error("SDK init error:", err);
-        setLoading(false);
       }
     }
-
     init();
   }, []);
 
   const fortunes = [
-    "✨ Bugün şans seninle, yeni başlangıçlara açık ol!",
-    "🌙 Bir dilek tut, evren seni duyuyor.",
-    "🔥 Cesur ol — risk almadan kazanç olmaz.",
-    "🍀 Güzel haberler yolda, sabırlı ol.",
-    "🌟 Enerjini yüksek tut, doğru insanlar seni bulacak."
+    "✨ Great opportunities await you!",
+    "🍀 Luck favors you — take the leap!",
+    "🌞 Today’s energy will bring you joy.",
+    "🌙 Trust your intuition; it won’t fail you.",
+    "🔥 Passion drives success today."
   ];
 
-  const revealFortune = () => {
-    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
-    setFortune(random);
+  const connectWallet = async () => {
+    try {
+      if (typeof window !== "undefined" && (window as any).ethereum) {
+        await (window as any).ethereum.request({ method: "eth_requestAccounts" });
+        setWalletConnected(true);
+        alert("Wallet connected successfully!");
+      } else {
+        alert("No wallet detected. Please install MetaMask or Base wallet!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-purple-900 text-white">
-        <p>🔮 MiniApp Yükleniyor...</p>
-      </div>
-    );
-  }
+  const saveToBlockchain = async (fortuneText: string) => {
+    try {
+      if (typeof window === "undefined" || !(window as any).ethereum) return;
+      const provider = new ethers.BrowserProvider((window as any).ethereum);
+      const signer = await provider.getSigner();
+
+      const tx = await signer.sendTransaction({
+        to: "0x0000000000000000000000000000000000000000",
+        value: 0n,
+        data: ethers.hexlify(ethers.toUtf8Bytes(fortuneText))
+      });
+
+      console.log("Transaction sent:", tx);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const revealFortune = () => {
+    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    setFortune(randomFortune);
+    saveToBlockchain(randomFortune);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-700 to-indigo-900 text-white p-6">
-      <h1 className="text-3xl font-bold mb-6">Fortune Teller 🔮</h1>
+    <>
+      <Head>
+        <title>Fortune Teller 🔮</title>
+        <meta name="description" content="Reveal your daily fortune and share it on Farcaster!" />
 
-      <button
-        onClick={revealFortune}
-        className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full text-lg font-medium shadow-lg transition-all"
+        {/* Farcaster MiniApp Embed Meta */}
+        <meta
+          name="fc:miniapp"
+          content={JSON.stringify({
+            version: "1",
+            imageUrl: "https://fortune-miniapp-six.vercel.app/icon.png",
+            button: {
+              title: "Reveal Fortune",
+              action: {
+                type: "launch_miniapp",
+                label: "Reveal Fortune",
+                name: "Fortune Teller",
+                url: "https://fortune-miniapp-six.vercel.app"
+              }
+            }
+          })}
+        />
+
+        {/* OG / Twitter */}
+        <meta property="og:title" content="Fortune Teller 🔮" />
+        <meta property="og:description" content="Reveal your daily fortune and share it on Farcaster!" />
+        <meta property="og:image" content="https://fortune-miniapp-six.vercel.app/icon.png" />
+        <meta property="og:url" content="https://fortune-miniapp-six.vercel.app" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          background: "linear-gradient(to bottom right, #6b46c1, #b794f4)",
+          color: "white",
+          textAlign: "center",
+          fontFamily: "sans-serif",
+          padding: "1rem"
+        }}
       >
-        Reveal Fortune
-      </button>
+        <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Fortune Teller 🔮</h1>
+        <p style={{ fontSize: "1.25rem", marginBottom: "2rem" }}>{fortune}</p>
 
-      {fortune && (
-        <div className="mt-8 text-center bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg max-w-sm">
-          <p className="text-xl">{fortune}</p>
-        </div>
-      )}
-
-      {!isMiniApp && (
-        <p className="mt-10 text-sm opacity-70">
-          (⚠️ Not running in Farcaster MiniApp — open from Farcaster mobile app)
-        </p>
-      )}
-    </div>
+        {!walletConnected ? (
+          <button
+            onClick={connectWallet}
+            style={{
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "#fff",
+              color: "#6b46c1",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            Connect Wallet
+          </button>
+        ) : (
+          <button
+            onClick={revealFortune}
+            style={{
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "#fff",
+              color: "#6b46c1",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            Reveal Fortune
+          </button>
+        )}
+      </div>
+    </>
   );
 }
