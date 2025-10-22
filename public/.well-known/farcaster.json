@@ -1,17 +1,27 @@
 {
-  "id": "fortune-miniapp",
-  "name": "Fortune Teller 🔮",
-  "version": "1.0.0",
-  "description": "Get your daily fortune and share it on Farcaster!",
-  "url": "https://fortune-miniapp-six.vercel.app",
-  "icon": "https://fortune-miniapp-six.vercel.app/icon.png",
-  "developer": {
-    "name": "forumevi",
-    "url": "https://farcaster.xyz/forumevi"
+  "frame": {
+    "name": "Fortune Teller 🔮",
+    "version": "1",
+    "iconUrl": "https://https://fortune-miniapp-six.vercel.app//icon.png",
+    "homeUrl": "https://https://fortune-miniapp-six.vercel.app/",
+    "imageUrl": "https://https://fortune-miniapp-six.vercel.app//image.png",
+    "buttonTitle": "Reveal Fortune",
+    "splashImageUrl": "https://https://fortune-miniapp-six.vercel.app//splash.png",
+    "splashBackgroundColor": "#6b46c1",
+    "webhookUrl": "https://https://fortune-miniapp-six.vercel.app//api/webhook",
+    "subtitle": "Reveal your daily fortune and share it on Farcaster",
+    "description": "Reveal your daily fortune and share it on Farcaster",
+    "primaryCategory": "social",
+    "tags": [
+      "base",
+      "fun",
+      "miniapp",
+      "luck"
+    ]
   },
   "accountAssociation": {
     "header": "eyJmaWQiOjUyMDE2OCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDI3N2ZjMTRmNjkwNjA2RWMzMUYwMDYyMDI0NjRFQTU2M2VmRkU2QzIifQ",
-    "payload": "eyJkb21haW4iOiJmb3J0dW5lLW1pbmlhcHAtc2l4LnZlcmNlbC5hcHAifQ",
-    "signature": "4+mhGvHVeBvzVlX6656VDnfOjQgQnXO0pWiuz2ly5INsV2w4vQWPwxZhVUkiiKtXc91Wc2Bxu8FMlVp2a8k5/xs="
+    "payload": "eyJkb21haW4iOiJodHRwczovL2ZvcnR1bmUtbWluaWFwcC1zaXgudmVyY2VsLmFwcC8ifQ",
+    "signature": "p0C7I8t8Xb1dN1f96K2S2RMeRqJzcPo7Jy7hgiwRRRYYmeIOjRecpEYdQhNy2p9x3vtTovhXj3707+ECdbu8gxw="
   }
 }
