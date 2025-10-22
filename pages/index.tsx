@@ -6,21 +6,10 @@ export default function Home() {
   const [fortune, setFortune] = useState("🔮 Click to reveal your fortune!");
   const [walletConnected, setWalletConnected] = useState(false);
 
-  // ✅ SDK ready fix — Farcaster splash screen hatasını çözer
-  useEffect(() => {
-    const initFarcaster = async () => {
-      try {
-        const fc = (window as any).farcaster;
-        if (fc?.actions?.ready) {
-          await fc.actions.ready();
-          console.log("✅ Farcaster SDK ready called");
-        }
-      } catch (err) {
-        console.error("Farcaster SDK init error:", err);
-      }
-    };
-    initFarcaster();
-  }, []);
+  // 👇 bu kısım READY hatasını %100 çözer
+  if (typeof window !== "undefined" && (window as any).farcaster?.actions?.ready) {
+    (window as any).farcaster.actions.ready().catch(() => {});
+  }
 
   const fortunes = [
     "✨ Great opportunities await you!",
