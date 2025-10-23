@@ -17,36 +17,37 @@ export default function Home() {
   }, []);
 
   const connectWallet = async () => {
-    try {
-      // normal tarayıcı
-      if (typeof window !== "undefined" && (window as any).ethereum) {
-        await (window as any).ethereum.request({ method: "eth_requestAccounts" });
-        const acc = await (window as any).ethereum.request({ method: "eth_accounts" });
-        if (acc && acc.length > 0) {
-          setAddress(acc[0]);
-          setWalletConnected(true);
-          alert("Wallet connected successfully!");
-        }
-      } 
-      // Farcaster MiniApp ortamı
-      else if (sdk.wallet && typeof sdk.wallet.getEthereumProvider === "function") {
-        const provider = await sdk.wallet.getEthereumProvider();
-        const accs: string[] = await provider.request({ method: "eth_requestAccounts" });
-        if (accs && accs.length > 0) {
-          setAddress(accs[0]);
-          setWalletConnected(true);
-          alert(`Connected wallet: ${accs[0]}`);
-        } else {
-          alert("No account returned from Farcaster wallet.");
-        }
-      } else {
-        alert("No wallet detected. Please install MetaMask or open in Farcaster!");
+  try {
+    // Tarayıcı ortamı (MetaMask vb.)
+    if (typeof window !== "undefined" && (window as any).ethereum) {
+      const provider = (window as any).ethereum as any;
+      const accounts = await provider.request({ method: "eth_requestAccounts" }) as string[];
+      if (accounts.length > 0) {
+        setAddress(accounts[0]);
+        setWalletConnected(true);
+        alert("Wallet connected successfully!");
       }
-    } catch (err) {
-      console.error("connectWallet error:", err);
-      alert("Wallet connection failed. Check console for details.");
     }
-  };
+    // Farcaster Mini App ortamı
+    else if (sdk.wallet && typeof sdk.wallet.getEthereumProvider === "function") {
+      const provider = await sdk.wallet.getEthereumProvider() as any;
+      const accounts = await provider.request({ method: "eth_requestAccounts" }) as string[];
+      if (accounts.length > 0) {
+        setAddress(accounts[0]);
+        setWalletConnected(true);
+        alert(`Connected wallet: ${accounts[0]}`);
+      } else {
+        alert("No account returned from Farcaster wallet.");
+      }
+    } else {
+      alert("No wallet detected. Please install MetaMask or open in Farcaster!");
+    }
+  } catch (err) {
+    console.error("connectWallet error:", err);
+    alert("Wallet connection failed. Check console for details.");
+  }
+};
+
 
   const saveToBlockchain = async (fortuneText: string) => {
     try {
